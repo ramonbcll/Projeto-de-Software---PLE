@@ -9,20 +9,17 @@ public class Laboratorio {
     public static int qtdeProjeto = 0;
     Pessoas add = new Pessoas();
 
-    public String getValor_dadosProjetos(int x, int y) {
-        return dadosProjetos[x][y];
-    }
-
     public void projetos () {
-        String status = "Em elaboração";
-        System.out.println("Digite a opção que deseja acessar\n [1] Cadastrar Projetos\n [2] Alterar Projetos\n [3] Voltar ao menu principal");
+        String status = "Em elaboracao";
+        System.out.println("Digite a opcao que deseja acessar\n [1] Cadastrar Projetos\n [2] Alterar Projetos\n [3] Voltar ao menu principal");
         int option = input.nextInt();
 
         if(option == 1) {
-            System.out.println("Digite quantos colaboradores o projeto terá");
+            System.out.println("Digite quantos colaboradores o projeto tera:");
             int colaboradores = input.nextInt();
+            String lixo = input.nextLine();
             System.out.println("Digite os dados na seguinte ordem: ");
-            System.out.printf("TITULO, DATA DE INICIO E TÉRMINO (SOMENTE NÚMEROS), STATUS, AGÊNCIA FINANCIADORA, VALOR FINANCIADO, OBJETIVO, DESCRIÇÃO, NOME DO(S) %d COLABORADOR(ES)\n", colaboradores);
+            System.out.printf("TITULO, DATA DE INICIO E TERMINO (SOMENTE NUMEROS), STATUS, AGENCIA FINANCIADORA, VALOR FINANCIADO, OBJETIVO, DESCRICAO, NOME DO(S) %d COLABORADOR(ES)\n", colaboradores);
 
             for(int colunas = 0; colunas <= 9; colunas++) {
                 if(colunas == 4) {

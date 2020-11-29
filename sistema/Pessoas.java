@@ -5,44 +5,53 @@ import java.util.Scanner;
 public class Pessoas {
     public static int qtdePessoas = 0;
     public static Scanner input = new Scanner(System.in);
-    public static String[][] dados = new String[20][7];
+    public static String[][] dadosPessoas = new String[20][7];
 
     public boolean verificarDados(String nome) {
         int j = 0;
     	int k = 0;
     	for(int i = 0; i < qtdePessoas; i++) {
-    		if(nome.equalsIgnoreCase(dados[i][0]) && dados[i][5].equalsIgnoreCase("aluno")) {
+    		if(nome.equalsIgnoreCase(dadosPessoas[i][0]) && dadosPessoas[i][5].equalsIgnoreCase("aluno")) {
     			j++;
     		}
-    		else if(nome.equalsIgnoreCase(dados[i][0]) && dados[i][5].equalsIgnoreCase("professor")) {
+    		else if(nome.equalsIgnoreCase(dadosPessoas[i][0]) && dadosPessoas[i][5].equalsIgnoreCase("professor")) {
     			k++;
     		}
     	}
-    	if (j > 0 && k < 0 ) {
+    	if (j > 0 || k > 0 ) {
     		return true;
     	}
     	else {
     		return false;
-    	}
+        }
     }
 
     public void addColaboradores(int linhas, int colunas, int qtdeColaboradores, int alunos, int professores, String statusProjeto[][]) {
         String nome, statusV = "Em elaboracao";
         boolean statusPessoa;
-        System.out.println("addColaboradores");
+        System.out.printf("Digite o nome de %d colaborador(es): \n", qtdeColaboradores);
         for(int i = 0; i < qtdeColaboradores; i++) {
-            System.out.printf("Digite o nome de %d colaborador(es): \n", qtdeColaboradores - i);
             nome = input.nextLine();
+            String lixo = input.nextLine();
             statusPessoa = verificarDados(nome);
-
             if(statusPessoa == true && statusProjeto[linhas][3].equalsIgnoreCase(statusV)) {
-                alunos += 1;
-            }
-            else if(statusPessoa == false && statusProjeto[linhas][3].equalsIgnoreCase(statusV)) {
-                professores += 1;
+                for(int j = 0; j < 20; j++) {
+                    //System.out.printf("%s %s %s\n", nome, dadosPessoas[j][0], dadosPessoas[j][5]);
+                    if(nome.equalsIgnoreCase(dadosPessoas[j][0]) && dadosPessoas[j][5].equalsIgnoreCase("aluno")) {
+                        alunos += 1;
+                        break;
+                    }
+                    else if(nome.equalsIgnoreCase(dadosPessoas[j][0]) && dadosPessoas[j][5].equalsIgnoreCase("professor")) {
+                        professores += 1;
+                        break;
+                    }
+                    //System.out.printf("%d %d\n", alunos, professores);
+                }
+                System.out.printf("%d %d\n", alunos, professores);
             }
             else {
-            	System.out.println("Colaborador não encontrado no banco de dados.");
+                System.out.println("Colaborador nao encontrado no banco de dados.");
+                i -= 1;
             }
 
             if(alunos > 2) {
@@ -51,9 +60,9 @@ public class Pessoas {
             else if(professores == 0) {
             	System.out.println("Voce precisa de pelo menos 1 professor para projeto");
             }
-        	else if(professores >= 2) {
-        		System.out.println("Voce nao pode adicionar mais professores ao projeto");
-        	}
+            else if(professores >= 2) {
+                System.out.println("Voce nao pode adicionar mais professores ao projeto");
+            }
         }
     }
 
@@ -62,10 +71,10 @@ public class Pessoas {
         String lixo = input.nextLine();
         String busca = input.nextLine();
         for(int linhas = 0; linhas < qtdePessoas; linhas++) {
-            if(busca.equalsIgnoreCase(dados[linhas][0])) {
-                System.out.println("Colaborador encontrado. Abaixo, seguem as informações cadastradas do colaborador na seguinte sequência: NOME, E-MAIL, PROJETOS QUE PARTICIPOU, PROJETOS EM ANDAMENTO, PRODUÇÃO ACADÊMICA, CARGO:");
+            if(busca.equalsIgnoreCase(dadosPessoas[linhas][0])) {
+                System.out.println("Colaborador encontrado. Abaixo, seguem as informações cadastradas do colaborador na seguinte sequencia: NOME, E-MAIL, PROJETOS QUE PARTICIPOU, PROJETOS EM ANDAMENTO, PRODUCAO ACADEMICA, CARGO:");
                 for(int colunas = 0; colunas < 6; colunas++) {
-                    System.out.println(dados[linhas][colunas]);
+                    System.out.println(dadosPessoas[linhas][colunas]);
                 }
             }
         }
@@ -80,22 +89,22 @@ public class Pessoas {
         if(option == 1) {
             System.out.println("NOME:");
             String lixo = input.nextLine();
-            dados[qtdePessoas][colunas] = input.nextLine();
+            dadosPessoas[qtdePessoas][colunas] = input.nextLine();
             colunas += 1;
             System.out.println("E-MAIL:");
-            dados[qtdePessoas][colunas] = input.nextLine();
+            dadosPessoas[qtdePessoas][colunas] = input.nextLine();
             colunas += 1;
             System.out.println("PROJETOS QUE PARTICIPOU:");
-            dados[qtdePessoas][colunas] = input.nextLine();
+            dadosPessoas[qtdePessoas][colunas] = input.nextLine();
             colunas += 1;
             System.out.println("PROJETOS EM ANDAMENTO:");
-            dados[qtdePessoas][colunas] = input.nextLine();
+            dadosPessoas[qtdePessoas][colunas] = input.nextLine();
             colunas += 1;
-            System.out.println("PRODUÇÃO ACADÊMICA:");
-            dados[qtdePessoas][colunas] = input.nextLine();
+            System.out.println("PRODUCAO ACADEMICA:");
+            dadosPessoas[qtdePessoas][colunas] = input.nextLine();
             colunas += 1;
             System.out.println("TITULO:");
-            dados[qtdePessoas][colunas] = input.nextLine();
+            dadosPessoas[qtdePessoas][colunas] = input.nextLine();
             colunas += 1;
             qtdePessoas += 1;
             System.out.println("Colaborador cadastrado com sucesso.");

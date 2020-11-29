@@ -10,7 +10,7 @@ public class Menu {
     Laboratorio lab = new Laboratorio();
 
     public void start() {
-        System.out.println("Digite a opção que deseja para acessar no laboratório:\n [1] Colaboradores\n [2] Projetos\n [3] Relatórios dos laboratórios\n [4] Sair");
+        System.out.println("Digite a opcao que deseja para acessar no laboratorio:\n [1] Colaboradores\n [2] Projetos\n [3] Relatórios dos laboratorios\n [4] Sair");
         int option = input.nextInt();
         switch(option) {
             case 1:
