@@ -31,36 +31,43 @@ public class Pessoas {
         boolean statusPessoa;
         System.out.printf("Digite o nome de %d colaborador(es): \n", qtdeColaboradores);
         for(int i = 0; i < qtdeColaboradores; i++) {
+            input.nextLine();
             nome = input.nextLine();
-            String lixo = input.nextLine();
             statusPessoa = verificarDados(nome);
             if(statusPessoa == true && statusProjeto[linhas][3].equalsIgnoreCase(statusV)) {
                 for(int j = 0; j < 20; j++) {
-                    //System.out.printf("%s %s %s\n", nome, dadosPessoas[j][0], dadosPessoas[j][5]);
-                    if(nome.equalsIgnoreCase(dadosPessoas[j][0]) && dadosPessoas[j][5].equalsIgnoreCase("aluno")) {
-                        alunos += 1;
+                    if(nome.equalsIgnoreCase(dadosPessoas[j][0]) && dadosPessoas[j][5].equalsIgnoreCase("professor")) {
+                        if(professores < 2) {
+                            System.out.println("Professor cadastrado no projeto com sucesso.");
+                            professores += 1;
+                            statusProjeto[linhas][7+professores] = nome;
+                            break;
+                        }
+                    }
+                    else if(nome.equalsIgnoreCase(dadosPessoas[j][0]) && dadosPessoas[j][5].equalsIgnoreCase("aluno") && professores >= 1) {
+                        if(alunos < 2) {
+                            System.out.println("Aluno cadastrado no projeto com sucesso.");                            
+                            alunos += 1;
+                            break;
+                        }
+                    }
+                    else if(nome.equalsIgnoreCase(dadosPessoas[j][0]) && dadosPessoas[j][5].equalsIgnoreCase("aluno") && professores <= 0) {
+                        System.out.println("O colaborador não é um professor, primeiro cadastre pelo menos um professor no projeto.");
+                        i -= 1;
                         break;
                     }
-                    else if(nome.equalsIgnoreCase(dadosPessoas[j][0]) && dadosPessoas[j][5].equalsIgnoreCase("professor")) {
-                        professores += 1;
-                        break;
-                    }
-                    //System.out.printf("%d %d\n", alunos, professores);
                 }
-                System.out.printf("%d %d\n", alunos, professores);
+                //System.out.printf("%d %d\n", alunos, professores);
             }
             else {
                 System.out.println("Colaborador nao encontrado no banco de dados.");
                 i -= 1;
             }
 
-            if(alunos > 2) {
-            	System.out.println("Voce nao pode adicionar mais alunos ao projeto");
+            if(alunos == 2) {
+                System.out.println("Voce nao pode adicionar mais alunos ao projeto");
             }
-            else if(professores == 0) {
-            	System.out.println("Voce precisa de pelo menos 1 professor para projeto");
-            }
-            else if(professores >= 2) {
+            else if(professores == 2) {
                 System.out.println("Voce nao pode adicionar mais professores ao projeto");
             }
         }
