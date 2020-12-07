@@ -2,55 +2,42 @@ package sistema;
 
 import java.util.Scanner;
 import sistema.DadosProjeto;
+import sistema.DadosPessoas;
+import sistema.Verificador;
 
 public class Pessoas {
     public static int qtdePessoas = 0;
     public static Scanner input = new Scanner(System.in);
-    //public static String[][] dadosPessoas = new String[20][7];
     DadosProjeto dadosProjeto = new DadosProjeto();
     DadosPessoas dadosPessoas = new DadosPessoas();
-
-    public boolean verificarDados(String nome) {
-        int j = 0;
-    	int k = 0;
-    	for(int i = 0; i < qtdePessoas; i++) {
-    		if(nome.equalsIgnoreCase(dadosPessoas.infoPessoas(i, 0)) && dadosPessoas.infoPessoas(i, 5).equalsIgnoreCase("aluno")) {
-    			j++;
-    		}
-    		else if(nome.equalsIgnoreCase(dadosPessoas.infoPessoas(i, 0)) && dadosPessoas.infoPessoas(i, 5).equalsIgnoreCase("professor")) {
-    			k++;
-    		}
-    	}
-    	if (j > 0 || k > 0 ) {
-    		return true;
-    	}
-    	else {
-    		return false;
-        }
-    }
+    Verificador verifica = new Verificador();
 
     public void addColaboradores(int linhas, int colunas, int qtdeColaboradores, int alunos, int professores) {
         String nome, statusV = "Em elaboracao";
-        boolean statusPessoa;
-        System.out.printf("Digite o nome de %d colaborador(es): \n", qtdeColaboradores);
+        boolean statusPessoa, totalProjetosPessoas;
+        System.out.println("Digite o nome de todos os colaboradores:");
+        input.nextLine();
         for(int i = 0; i < qtdeColaboradores; i++) {
-            input.nextLine();
             nome = input.nextLine();
-            statusPessoa = verificarDados(nome);
-            if(statusPessoa == true && dadosProjeto.infoProjetos(linhas, 3).equalsIgnoreCase(statusV)) {
+            statusPessoa = verifica.verificarDados(nome);
+            totalProjetosPessoas = verifica.projetosPessoas(dadosProjeto.qtdeProjeto(), nome);
+            if(statusPessoa == true && totalProjetosPessoas == true && dadosProjeto.infoProjetos(linhas, 3).equalsIgnoreCase(statusV)) {
                 for(int j = 0; j < 20; j++) {
                     if(nome.equalsIgnoreCase(dadosPessoas.infoPessoas(j, 0)) && dadosPessoas.infoPessoas(j, 5).equalsIgnoreCase("professor")) {
                         if(professores < 2) {
+                            dadosPessoas.setProjetoPessoa(j, dadosProjeto.infoProjetos(dadosProjeto.qtdeProjeto(), 0));
                             System.out.println("Professor cadastrado no projeto com sucesso.");
                             professores += 1;
-                            dadosProjeto.addColaborador(linhas, 7 + professores, nome);
+                            dadosProjeto.setColaborador(linhas, 7 + professores + alunos, nome);
                             break;
                         }
                     }
                     else if(nome.equalsIgnoreCase(dadosPessoas.infoPessoas(j, 0)) && dadosPessoas.infoPessoas(j, 5).equalsIgnoreCase("aluno") && professores >= 1) {
                         if(alunos < 2) {
+                            dadosPessoas.setProjetoPessoa(j, dadosProjeto.infoProjetos(dadosProjeto.qtdeProjeto(), 0));
                             System.out.println("Aluno cadastrado no projeto com sucesso.");                            
                             alunos += 1;
+                            dadosProjeto.setColaborador(linhas, 7 + professores + alunos, nome);
                             break;
                         }
                     }
@@ -61,9 +48,16 @@ public class Pessoas {
                     }
                 }
             }
+            else if(statusPessoa == true && totalProjetosPessoas == false && dadosProjeto.infoProjetos(linhas, 3).equalsIgnoreCase(statusV)) {
+                System.out.println("Esse colaborador nao pode participar de mais projetos.");
+                i -= 1;
+            }
             else if(statusPessoa == false && dadosProjeto.infoProjetos(linhas, 3).equalsIgnoreCase(statusV)) {
                 System.out.println("Colaborador nao encontrado no banco de dados.");
                 i -= 1;
+            }
+            else if(totalProjetosPessoas == true) {
+                System.out.println("O colaborador nao pode ser cadastrado em mais projetos.");
             }
             else {
                 System.out.println("Nao e possível alocar pessoas nesse projeto pois nao esta mais em elaboracao.");
@@ -83,11 +77,13 @@ public class Pessoas {
         System.out.println("Bem-vindo a busca de colaboradores, digite o nome do colaborador que deseja procurar no nosso bando de dados");
         String lixo = input.nextLine();
         String busca = input.nextLine();
-        for(int linhas = 0; linhas < qtdePessoas; linhas++) {
+        for(int linhas = 0; linhas < dadosPessoas.qtdePessoas(); linhas++) {
             if(busca.equalsIgnoreCase(dadosPessoas.infoPessoas(linhas, 0))) {
-                System.out.println("Colaborador encontrado. Abaixo, seguem as informações cadastradas do colaborador na seguinte sequencia: NOME, E-MAIL, PROJETOS QUE PARTICIPOU, PROJETOS EM ANDAMENTO, PRODUCAO ACADEMICA, CARGO:");
-                for(int colunas = 0; colunas < 6; colunas++) {
-                    System.out.println(dadosPessoas.infoPessoas(linhas, colunas));
+                System.out.println("Colaborador encontrado. Abaixo, seguem as informacoes cadastradas do colaborador na seguinte sequencia:\nNOME, E-MAIL, PROJETOS QUE PARTICIPOU, PROJETOS EM ANDAMENTO, PRODUCAO ACADEMICA, CARGO:");
+                for(int colunas = 0; colunas < 8; colunas++) {
+                    if(dadosPessoas.infoPessoas(linhas, colunas) != null) {
+                        System.out.println(dadosPessoas.infoPessoas(linhas, colunas));
+                    }
                 }
             }
         }
@@ -95,31 +91,31 @@ public class Pessoas {
     }
 
     public void colaboradores() {
-        System.out.println("Digite o que deseja fazer:\n [1] Cadastrar colaboradores\n [2] Pesquisar colaboradores\n [3] Voltar ao menu principal");
+        System.out.println("\nDigite o que deseja fazer:\n [1] Cadastrar colaboradores\n [2] Pesquisar colaboradores\n [3] Voltar ao menu principal");
         int option = input.nextInt();
         int colunas = 0;
 
         if(option == 1) {
             System.out.println("NOME:");
             String lixo = input.nextLine();
-            dadosPessoas.addInfo(qtdePessoas, colunas);
+            dadosPessoas.setInfo(dadosPessoas.qtdePessoas(), colunas);
             colunas += 1;
             System.out.println("E-MAIL:");
-            dadosPessoas.addInfo(qtdePessoas, colunas);
+            dadosPessoas.setInfo(dadosPessoas.qtdePessoas(), colunas);
             colunas += 1;
             System.out.println("PROJETOS QUE PARTICIPOU:");
-            dadosPessoas.addInfo(qtdePessoas, colunas);
+            dadosPessoas.setInfo(dadosPessoas.qtdePessoas(), colunas);
             colunas += 1;
             System.out.println("PROJETOS EM ANDAMENTO:");
-            dadosPessoas.addInfo(qtdePessoas, colunas);
+            dadosPessoas.setInfo(dadosPessoas.qtdePessoas(), colunas);
             colunas += 1;
             System.out.println("PRODUCAO ACADEMICA:");
-            dadosPessoas.addInfo(qtdePessoas, colunas);
+            dadosPessoas.setInfo(dadosPessoas.qtdePessoas(), colunas);
             colunas += 1;
             System.out.println("TITULO:");
-            dadosPessoas.addInfo(qtdePessoas, colunas);
+            dadosPessoas.setInfo(dadosPessoas.qtdePessoas(), colunas);
             colunas += 1;
-            qtdePessoas += 1;
+            dadosPessoas.setPessoas();
             System.out.println("Colaborador cadastrado com sucesso.");
             colaboradores();
         }
