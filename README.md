@@ -6,9 +6,11 @@
 O sistema de gestão de produtividade acadêmica objetiva o gerenciamento da produção acadêmica de um laboratório de pesquisa, incluindo informações sobre projetos de pesquisa e colaboradores.
 
 
+
 **Cadastrar colaboradores**
 
 Os colaboradores devem ser cadastrados no sistema para poderem fazer parte dos projeto
+
 
 
 **Pesquisar colaboradores**
@@ -16,9 +18,11 @@ Os colaboradores devem ser cadastrados no sistema para poderem fazer parte dos p
 Todas informações referentes a um colaborador
 
 
+
 **Cadastrar projeto**
 
 Cria um novo projeto no laboratório com todos os colaboradores participantes dele
+
 
 
 **Alterar projeto**
@@ -26,9 +30,11 @@ Cria um novo projeto no laboratório com todos os colaboradores participantes de
 Altera a fase de desenvolvimento em que o projeto se encontra
 
 
+
 **Adicionar publicações**
 
 Para adicionar publicações à um projeto para andamento do mesmo
+
 
 
 **Relatório do laboratório**
