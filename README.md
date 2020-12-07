@@ -1,9 +1,13 @@
 # Sistema de Produtividade Acadêmica
 
 ### Disciplina: Projeto de Software
-### Professor Baldoino Fonseca
+### Professor: Baldoino Fonseca
+
+
+
 
 O sistema de gestão de produtividade acadêmica objetiva o gerenciamento da produção acadêmica de um laboratório de pesquisa, incluindo informações sobre projetos de pesquisa e colaboradores.
+
 
 
 
@@ -13,9 +17,11 @@ Os colaboradores devem ser cadastrados no sistema para poderem fazer parte dos p
 
 
 
+
 **Pesquisar colaboradores**
 
 Todas informações referentes a um colaborador
+
 
 
 
@@ -25,15 +31,18 @@ Cria um novo projeto no laboratório com todos os colaboradores participantes de
 
 
 
+
 **Alterar projeto**
 
 Altera a fase de desenvolvimento em que o projeto se encontra
 
 
 
+
 **Adicionar publicações**
 
 Para adicionar publicações à um projeto para andamento do mesmo
+
 
 
 
