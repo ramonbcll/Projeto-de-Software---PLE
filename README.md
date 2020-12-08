@@ -49,3 +49,8 @@ Para adicionar publicações à um projeto para andamento do mesmo
 **Relatório do laboratório**
 
 Informações gerais sobre o laboratório e sobre cada projeto cadastrado
+
+
+
+**Desenvolvido no VSCode**
+
