@@ -7,7 +7,7 @@ import sistema.DadosPessoas;
 
 public class Laboratorio {
     public static Scanner input = new Scanner(System.in);
-    Pessoas add = new Pessoas();
+    Pessoas pessoas = new Pessoas();
     DadosProjeto dadosProjeto = new DadosProjeto();
     DadosPessoas dadosPessoas = new DadosPessoas();
 
@@ -17,7 +17,7 @@ public class Laboratorio {
         String projeto = input.nextLine();
         System.out.printf("%s\n", projeto);
         for(int i = 0; i < dadosProjeto.qtdeProjeto(); i++) {
-            if(projeto.equalsIgnoreCase(dadosProjeto.infoProjetos(i, 0))) {
+            if(projeto.equalsIgnoreCase(dadosProjeto.getInfo(i, 0))) {
                 System.out.println("Projeto encontrado!");
                 if(dadosProjeto.getPublicacoes(i) != null) {
                     System.out.println("O projeto ja possui publicacoes associadas a ele.");
@@ -28,52 +28,55 @@ public class Laboratorio {
                     System.out.printf("Publicacao adicionada ao %s\n", projeto);
                 }
             }
+            else if(i == dadosProjeto.qtdeProjeto() - 1) {
+                System.out.println("Projeto nao encontrado.");
+            }
         }
     }
 
     public void verificarProjeto(int n) {
-        if(dadosProjeto.infoProjetos(n, 0).equalsIgnoreCase("x")) {
+        if(dadosProjeto.getInfo(n, 0).equalsIgnoreCase("x")) {
             System.out.println("O projeto nao possui todos os dados basicos para alterar o status.");
             System.out.println("Digite a baixo o TITULO:");
             dadosProjeto.setInfo(n, 0);
         }
-        if(dadosProjeto.infoProjetos(n, 1).equalsIgnoreCase("x")) {
+        if(dadosProjeto.getInfo(n, 1).equalsIgnoreCase("x")) {
             System.out.println("O projeto nao possui todos os dados basicos para alterar o status.");
             System.out.println("Digite a baixo a DATA DE INICIO (SOMENTE NUMEROS):");
             dadosProjeto.setInfo(n, 1);
         }
-        if(dadosProjeto.infoProjetos(n, 2).equalsIgnoreCase("x")) {
+        if(dadosProjeto.getInfo(n, 2).equalsIgnoreCase("x")) {
             System.out.println("O projeto nao possui todos os dados basicos para alterar o status.");
             System.out.println("Digite a baixo a DATA DE TERMINO (SOMENTE NUMEROS):");
             dadosProjeto.setInfo(n, 2);
         }
-        if(dadosProjeto.infoProjetos(n, 3).equalsIgnoreCase("x")) {
+        if(dadosProjeto.getInfo(n, 3).equalsIgnoreCase("x")) {
             System.out.println("O projeto nao possui todos os dados basicos para alterar o status.");
             System.out.println("Digite a baixo o STATUS:");
             dadosProjeto.setInfo(n, 3);
         }
-        if(dadosProjeto.infoProjetos(n, 3).equalsIgnoreCase("x")) {
+        if(dadosProjeto.getInfo(n, 3).equalsIgnoreCase("x")) {
             System.out.println("O projeto nao possui todos os dados basicos para alterar o status.");
             System.out.println("Digite a baixo a AGENCIA FINANCIADORA:");
             dadosProjeto.setInfo(n, 4);
         }
-        if(dadosProjeto.infoProjetos(n, 5).equalsIgnoreCase("x")) {
+        if(dadosProjeto.getInfo(n, 5).equalsIgnoreCase("x")) {
             System.out.println("O projeto nao possui todos os dados basicos para alterar o status.");
             System.out.println("Digite a baixo o VALOR FINANCIADO:");
             dadosProjeto.setInfo(n, 5);
         }
-        if(dadosProjeto.infoProjetos(n, 6).equalsIgnoreCase("x")) {
+        if(dadosProjeto.getInfo(n, 6).equalsIgnoreCase("x")) {
             System.out.println("O projeto nao possui todos os dados basicos para alterar o status.");
             System.out.println("Digite a baixo o OBJETIVO:");
             dadosProjeto.setInfo(n, 6);
         }
-        if(dadosProjeto.infoProjetos(n, 7).equalsIgnoreCase("x")) {
+        if(dadosProjeto.getInfo(n, 7).equalsIgnoreCase("x")) {
             System.out.println("O projeto nao possui todos os dados basicos para alterar o status.");
             System.out.println("Digite a baixo a DESCRICAO:");
             dadosProjeto.setInfo(n, 7);
         }
         for(int i = 0; i < 8; i++) {
-            if(dadosProjeto.infoProjetos(n, i).equalsIgnoreCase("x")) {
+            if(dadosProjeto.getInfo(n, i).equalsIgnoreCase("x")) {
                 verificarProjeto(n);
             }
         }
@@ -86,10 +89,10 @@ public class Laboratorio {
         String lixo = input.nextLine();
         String busca = input.nextLine();
         for(int i = 0; i < dadosProjeto.qtdeProjeto(); i++) {
-            if(busca.equalsIgnoreCase(dadosProjeto.infoProjetos(i, 0))) {
+            if(busca.equalsIgnoreCase(dadosProjeto.getInfo(i, 0))) {
                 System.out.println("Projeto encontrado!");
                 verificarProjeto(i);
-                if(status.equalsIgnoreCase(dadosProjeto.infoProjetos(i, 3))) {
+                if(status.equalsIgnoreCase(dadosProjeto.getInfo(i, 3))) {
                     System.out.println("Voce pode apenas mudar o status desse projeto para EM ANDAMENTO\n [1] Para alterar\n [2] Para nao alterar\n [3] Sair para o menu");
                     int option = input.nextInt();
                     if(option == 1) {
@@ -103,8 +106,8 @@ public class Laboratorio {
                         return;
                     }
                 }
-                else if(status2.equalsIgnoreCase(dadosProjeto.infoProjetos(i, 3))) {
-                    if(dadosProjeto.infoProjetos(i, 13) == null) {
+                else if(status2.equalsIgnoreCase(dadosProjeto.getInfo(i, 3))) {
+                    if(dadosProjeto.getInfo(i, 13) == null) {
                         System.out.println("O projeto nao possui publicacoes, nao e possivel alterar o status, adicione publicacoes a ele.");
                         return;
                     }
@@ -132,7 +135,7 @@ public class Laboratorio {
 
     public void projetos () {
         String status = "Em elaboracao";
-        System.out.println("\nDigite a opcao que deseja acessar\n [1] Cadastrar Projetos\n [2] Alterar Projetos\n [3] Adicionar publicacoes a um projeto\n [4] Voltar ao menu principal");
+        System.out.println("Digite a opcao que deseja acessar\n [1] Cadastrar Projetos\n [2] Alterar Projetos\n [3] Adicionar publicacoes a um projeto\n [4] Voltar ao menu principal");
         int option = input.nextInt();
 
         if(option == 1) {
@@ -147,13 +150,13 @@ public class Laboratorio {
             for(int colunas = 0; colunas <= 8; colunas++) {
                 if(colunas == 8) {
                     int linhas = dadosProjeto.qtdeProjeto();
-                    add.addColaboradores(linhas, colunas, colaboradores, 0, 0);
+                    pessoas.addColaboradores(linhas, colunas, colaboradores, 0, 0);
                     dadosProjeto.addProjeto();
                 }
                 else if(colunas < 8) {
                     dadosProjeto.setInfo(dadosProjeto.qtdeProjeto(), colunas);
                     if(colunas == 3) {
-                        if(status.equalsIgnoreCase(dadosProjeto.infoProjetos(dadosProjeto.qtdeProjeto(), 3))) {
+                        if(status.equalsIgnoreCase(dadosProjeto.getInfo(dadosProjeto.qtdeProjeto(), 3))) {
                             System.out.println("Status aprovado.");
                         }
                         else {

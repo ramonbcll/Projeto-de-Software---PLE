@@ -12,30 +12,30 @@ public class Relatorio {
     public void relatorios() {
 		int e = 0, a = 0, c = 0;
 		System.out.println("Informacoes do laboratorio:");
-		System.out.printf("Total de colaboradores: %d", dadosPessoas.qtdePessoas());
+		System.out.printf("Total de colaboradores: %d\n", dadosPessoas.qtdePessoas());
 		for(int i = 0; i < dadosProjeto.qtdeProjeto(); i++) {
-			if(dadosProjeto.infoProjetos(i, 3).equalsIgnoreCase("em elaboracao")) {
+			if(dadosProjeto.getInfo(i, 3).equalsIgnoreCase("em elaboracao")) {
 				e += 1;
 			}
-			else if(dadosProjeto.infoProjetos(i, 3).equalsIgnoreCase("em andamento")) {
+			else if(dadosProjeto.getInfo(i, 3).equalsIgnoreCase("em andamento")) {
 				a += 1;
 			}
-			else if(dadosProjeto.infoProjetos(i, 3).equalsIgnoreCase("concluido")) {
+			else if(dadosProjeto.getInfo(i, 3).equalsIgnoreCase("concluido")) {
 				c += 1;
 			}
 		}
-		System.out.printf("Projetos em elaboracao: %d", e);
-		System.out.printf("Projetos em andamento: %d", a);
-		System.out.printf("Projetos concluidos: %d", c);
-		System.out.printf("Total de projetos: %d", dadosProjeto.qtdeProjeto());
+		System.out.printf("Projetos em elaboracao: %d\n", e);
+		System.out.printf("Projetos em andamento: %d\n", a);
+		System.out.printf("Projetos concluidos: %d\n", c);
+		System.out.printf("Total de projetos: %d\n", dadosProjeto.qtdeProjeto());
 
         System.out.println("Digite o nome do projeto que deseja obter informacoes:");
 		String busca = input.nextLine();
     	for(int i = 0; i < dadosProjeto.qtdeProjeto(); i++) {
-    		if(busca.equalsIgnoreCase(dadosProjeto.infoProjetos(i, 0))) {
+    		if(busca.equalsIgnoreCase(dadosProjeto.getInfo(i, 0))) {
     			for(int colunas = 0; colunas < 13; colunas++) {
-					if(dadosProjeto.infoProjetos(i, colunas) != null) {
-    					System.out.println(dadosProjeto.infoProjetos(i, colunas));
+					if(dadosProjeto.getInfo(i, colunas) != null) {
+    					System.out.println(dadosProjeto.getInfo(i, colunas));
 					}
 				}
             }

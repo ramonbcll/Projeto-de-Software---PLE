@@ -11,8 +11,8 @@ public class Verificador {
         int x = 0;
         for(int i = 0; i < Integer.parseInt(dadosProjeto.qtdeColaboradores(projeto)); i++) {
             for(int j = 0; j < dadosPessoas.qtdePessoas(); j++) {
-                if(nome.equalsIgnoreCase(dadosPessoas.infoPessoas(j, 0))) {
-                    if(dadosPessoas.infoPessoas(j, 6) == null || dadosPessoas.infoPessoas(j, 7) == null) {
+                if(nome.equalsIgnoreCase(dadosPessoas.getInfo(j, 0))) {
+                    if(dadosPessoas.getInfo(j, 3) == null || dadosPessoas.getInfo(j, 4) == null) {
                         x += 1;
                     }
                 }
@@ -30,10 +30,10 @@ public class Verificador {
         int j = 0;
     	int k = 0;
     	for(int i = 0; i < dadosPessoas.qtdePessoas(); i++) {
-    		if(nome.equalsIgnoreCase(dadosPessoas.infoPessoas(i, 0)) && dadosPessoas.infoPessoas(i, 5).equalsIgnoreCase("aluno")) {
+    		if(nome.equalsIgnoreCase(dadosPessoas.getInfo(i, 0)) && dadosPessoas.getInfo(i, 2).equalsIgnoreCase("aluno")) {
     			j++;
     		}
-    		else if(nome.equalsIgnoreCase(dadosPessoas.infoPessoas(i, 0)) && dadosPessoas.infoPessoas(i, 5).equalsIgnoreCase("professor")) {
+    		else if(nome.equalsIgnoreCase(dadosPessoas.getInfo(i, 0)) && dadosPessoas.getInfo(i, 2).equalsIgnoreCase("professor")) {
     			k++;
     		}
     	}
